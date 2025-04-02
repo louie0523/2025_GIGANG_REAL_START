@@ -19,12 +19,17 @@ public class Player : MonoBehaviour
     Animator animator;
     bool isAttack = false;
 
+    public bool JumpTrue = false;
+    public float JumpPower = 5f;
+    Rigidbody rigid;
+
     private void Start()
     {
         Mcamera = Camera.main;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         animator = GetComponent<Animator>();
+        rigid = GetComponent<Rigidbody>();
     }
 
     private void Update()
@@ -32,6 +37,7 @@ public class Player : MonoBehaviour
         Move();
         Rotation();
         Attack();
+        Jump(); 
     }
 
     void Move()
@@ -72,5 +78,31 @@ public class Player : MonoBehaviour
     void AttackFalse()
     {
         isAttack = false;
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            JumpTrue = false;
+        }
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        if(collision.gameObject.CompareTag("Ground"))
+        {
+            JumpTrue = true;
+        }
+    }
+
+
+    void Jump()
+    {
+        if(Input.GetKeyDown (KeyCode.Space) && !JumpTrue)
+        {
+            rigid.AddForce(Vector3.up * JumpPower, ForceMode.Impulse);
+            JumpTrue = true;
+        }
     }
 }
