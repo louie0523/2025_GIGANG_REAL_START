@@ -674,7 +674,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 50
+    m_FontSize: 40
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
@@ -685,7 +685,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uC911\uC555\uC6A9 \uC0B0\uC18C\uD1B5 \uC5C5\uADF8\uB808\uC774\uB4DC"
+  m_Text: "\uC911\uC555\uC6A9 \uC0B0\uC18C\uD1B5 \uC5C5\uADF8\uB808\uC774\uB4DC\n1000\uACE8\uB4DC"
 --- !u!222 &292736336
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1163,7 +1163,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 50
+    m_FontSize: 40
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
@@ -1174,7 +1174,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uC800\uC555\uC6A9 \uC0B0\uC18C\uD1B5 \uC5C5\uADF8\uB808\uC774\uB4DC"
+  m_Text: "\uC800\uC555\uC6A9 \uC0B0\uC18C\uD1B5 \uC5C5\uADF8\uB808\uC774\uB4DC\n500\uACE8\uB4DC"
 --- !u!222 &743226458
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1517,7 +1517,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 50
+    m_FontSize: 40
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
@@ -1528,7 +1528,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uB300\uD615 \uAC00\uBC29 \uC5C5\uADF8\uB808\uC774\uB4DC"
+  m_Text: "\uB300\uD615 \uAC00\uBC29 \uC5C5\uADF8\uB808\uC774\uB4DC\n1000\uACE8\uB4DC"
 --- !u!222 &1204499798
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1836,7 +1836,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 50
+    m_FontSize: 40
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
@@ -1847,7 +1847,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uCD08\uB300\uD615 \uAC00\uBC29 \uC5C5\uADF8\uB808\uC774\uB4DC"
+  m_Text: "\uCD08\uB300\uD615 \uAC00\uBC29 \uC5C5\uADF8\uB808\uC774\uB4DC\n1500\uACE8\uB4DC"
 --- !u!222 &1732185743
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2048,7 +2048,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 50
+    m_FontSize: 40
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
@@ -2059,7 +2059,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uACE0\uC555\uC6A9 \uC0B0\uC18C\uD1B5 \uC5C5\uADF8\uB808\uC774\uB4DC"
+  m_Text: "\uACE0\uC555\uC6A9 \uC0B0\uC18C\uD1B5 \uC5C5\uADF8\uB808\uC774\uB4DC\n1500\uACE8\uB4DC"
 --- !u!222 &1924837929
 CanvasRenderer:
   m_ObjectHideFlags: 0

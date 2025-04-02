@@ -37,11 +37,11 @@ public class LobbyManager : MonoBehaviour
 
     public void BuyBag(int BagLevel)
     {
-        if (DataManager.instance.Gold >= NeedGold[BagLevel])
+        if (DataManager.instance.Gold >= NeedGold[BagLevel+1])
         {
             if (DataManager.instance.BagLevel == BagLevel - 1)
             {
-                DataManager.instance.Gold -= NeedGold[BagLevel];
+                DataManager.instance.Gold -= NeedGold[BagLevel+1];
                 DataManager.instance.BagLevel++;
                 DelayText.instance.DelayTexting("가방을 업그레이드하였습니다.");
             }

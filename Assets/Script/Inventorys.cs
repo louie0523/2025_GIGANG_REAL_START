@@ -39,7 +39,7 @@ public class Inventorys : MonoBehaviour
         {
             inventory.Add(this.transform.GetChild(0).transform.GetChild(i).gameObject);
             itemNums.Add(0);
-            if(i >= 6)
+            if(i >= 4 + (DataManager.instance.BagLevel-1 * 2))
             {
                 BoxLock.Add(true);
             } else
