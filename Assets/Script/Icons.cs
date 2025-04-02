@@ -5,10 +5,9 @@ using UnityEngine.UI;
 
 public class Icons : MonoBehaviour
 {
-    public List<string> icon = new List<string>();
+    public List<string> itemNames = new List<string>();
     public Text ItemName;
     public GameObject LockImage;
-    public bool isLock = false;
 
     private void Start()
     {
@@ -19,12 +18,12 @@ public class Icons : MonoBehaviour
     private void Update()
     {
         LockIObj();
+        ItemName.text = itemNames[Inventorys.Instance.itemNums[int.Parse(gameObject.name)]];
     }
 
     void LockIObj()
     {
-        
-        if(!isLock)
+        if (!Inventorys.Instance.BoxLock[int.Parse(gameObject.name)])
         {
             LockImage.SetActive(false);
         } else
@@ -32,5 +31,6 @@ public class Icons : MonoBehaviour
             LockImage.SetActive(true);
         }
     }
+
 
 }
