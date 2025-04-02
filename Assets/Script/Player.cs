@@ -11,6 +11,7 @@ public class Player : MonoBehaviour
     public int Hp = 100;
     public int MaxHp = 100;
     public float Air = 100f;
+    public float MaxAir = 100f;
 
     public float RotSpeed = 2.0f;
     public float rotationX = 0f;
@@ -40,6 +41,8 @@ public class Player : MonoBehaviour
         animator = GetComponent<Animator>();
         rigid = GetComponent<Rigidbody>();
         StartCoroutine(AirPerSentDown());
+        MaxAir = 100f + (DataManager.instance.AirLevel-1 * 40f);
+        Air = MaxAir;
     }
 
     private void Update()
@@ -125,7 +128,7 @@ public class Player : MonoBehaviour
     void HpAndAirSlider()
     {
         HpSlider.value = (float)(MaxHp / Hp);
-        AirSlider.value = Air / 100f;
+        AirSlider.value = Air / MaxAir;
     }
 
     IEnumerator AirPerSentDown()

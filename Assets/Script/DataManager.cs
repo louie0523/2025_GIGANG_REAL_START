@@ -9,6 +9,7 @@ public class DataManager : MonoBehaviour
     public int BagLevel = 1;
     public int AirLevel = 1;
     public int Gold = 500;
+    public int Stage = 1;
 
 
 
