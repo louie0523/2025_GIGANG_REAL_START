@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
@@ -33,6 +34,8 @@ public class Player : MonoBehaviour
 
     public bool isInvisible = false;
 
+    public GameObject GameOver;
+
     private void Start()
     {
         Mcamera = Camera.main;
@@ -41,8 +44,9 @@ public class Player : MonoBehaviour
         animator = GetComponent<Animator>();
         rigid = GetComponent<Rigidbody>();
         StartCoroutine(AirPerSentDown());
-        MaxAir = 100f + (DataManager.instance.AirLevel-1 * 40f);
+        MaxAir = 100f + ((DataManager.instance.AirLevel-1) * 40f);
         Air = MaxAir;
+        GameOver.SetActive(false);
     }
 
     private void Update()
@@ -55,6 +59,7 @@ public class Player : MonoBehaviour
             Jump(); 
             UseItme();
             HpAndAirSlider();
+            WeightSpeedDown();
         }
 
     }
@@ -64,24 +69,23 @@ public class Player : MonoBehaviour
         float MoveX = Input.GetAxis("Horizontal");
         float MoveZ = Input.GetAxis("Vertical");
 
-        Vector3 Move = transform.forward * MoveZ + transform.right * MoveX;
-        
-        transform.Translate(Move.normalized * (speed-speedDown) * Time.deltaTime, Space.World);
-        Mcamera.transform.position = transform.position + new Vector3(0, 0.5f, 0);
+        Vector3 move = transform.forward * MoveZ + transform.right * MoveX;
 
+        transform.Translate(move.normalized * (speed - speedDown) * Time.deltaTime, Space.World);
+        Mcamera.transform.position = transform.position + new Vector3(0, 0.5f, 0);
     }
 
     void Rotation()
     {
-        float MouseX = Input.GetAxis("Mouse X");
-        float MouseY = Input.GetAxis("Mouse Y");
+        float MouseX = Input.GetAxis("Mouse X") * RotSpeed;
+        float MouseY = Input.GetAxis("Mouse Y") * RotSpeed;
 
         rotationX -= MouseY;
         rotationY += MouseX;
         rotationX = Mathf.Clamp(rotationX, -90f, 90f);
 
-        Mcamera.transform.rotation = Quaternion.Euler(rotationX, rotationY, 0f);
-        transform.rotation = Quaternion.Euler(0, rotationY, 0f);
+        Mcamera.transform.rotation = Quaternion.Euler(rotationX, rotationY, 0);
+        transform.rotation = Quaternion.Euler(0, rotationY, 0);
     }
 
     void Attack()
@@ -104,6 +108,9 @@ public class Player : MonoBehaviour
         if (collision.gameObject.CompareTag("Ground"))
         {
             JumpTrue = false;
+        } else if(collision.gameObject.CompareTag("Death"))
+        {
+            Damage(1000);
         }
     }
 
@@ -151,6 +158,9 @@ public class Player : MonoBehaviour
             Hp = 0;
             Debug.Log("플레이어가 사망하였습니다. 게임 오버");
             IsAlive = false;
+            GameOver.SetActive(true);
+            Cursor.lockState = CursorLockMode.Confined;
+            Cursor.visible = true;
         }
     }
 
@@ -176,6 +186,17 @@ public class Player : MonoBehaviour
         float DownSpeed = UpSpeed;
         speed += UpSpeed;
         StartCoroutine(SpeedDown(DownSpeed));
+    }
+
+    void WeightSpeedDown()
+    {
+        if(Inventorys.Instance.VeryWeight)
+        {
+            speedDown = 3f;
+        } else
+        {
+            speedDown = 0;
+        }
     }
 
     IEnumerator SpeedDown(float DownSpeed)
@@ -224,8 +245,9 @@ public class Player : MonoBehaviour
             SelectNum--;
             if(Inventorys.Instance.itemNums[SelectNum] != 0 && !Inventorys.Instance.BoxLock[SelectNum])
             {
-                int UseItemNum = Inventorys.Instance.itemNums[SelectNum ];
+                int UseItemNum = Inventorys.Instance.itemNums[SelectNum];
                 Inventorys.Instance.itemNums[SelectNum] = 0;
+                Inventorys.Instance.WeightTextChange();
                 switch (UseItemNum - 1)
                 {
                     case 0:
@@ -250,10 +272,19 @@ public class Player : MonoBehaviour
                     case 5:
                         Debug.Log("연막탄 사용");
                         break;
+                    case 6:
+                        Debug.Log("보물을 버립니다.");
+                        break;
                 }
+
             }
             
         }
+    }
+
+    public void RetryThisStage()
+    {
+        SceneManager.LoadScene("Stage" + DataManager.instance.Stage);
     }
 
 

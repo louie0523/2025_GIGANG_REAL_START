@@ -5,11 +5,13 @@ using UnityEngine.SceneManagement;
 
 public class GoToLobby : MonoBehaviour
 {
-    private void nCollisionEnter(Collision collision)
+    private void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.CompareTag("Player"))
+        if (collision.gameObject.CompareTag("Player"))
         {
-            SceneManager.LoadScene("Lobby");
+            Inventorys.Instance.ItemSelling();
+            Cursor.lockState = CursorLockMode.Confined;
+            Cursor.visible = true;
         }
     }
 }
