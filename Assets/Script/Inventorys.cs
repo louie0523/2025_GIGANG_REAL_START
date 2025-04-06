@@ -106,7 +106,7 @@ public class Inventorys : MonoBehaviour
         }
     }
 
-    public void AddItem(int num)
+    public bool AddItem(int num)
     {
         bool itemGet = false;
         for(int i = 0; i < 8; i++)
@@ -115,15 +115,18 @@ public class Inventorys : MonoBehaviour
             {
 
                 itemNums[i] = num;
+                Debug.Log("아이템 획득");
                 itemGet = true;
                 WeightTextChange();
-                break;
+                return true;
             }
         }
         if(!itemGet)
         {
             Debug.Log("배낭이 꽉 찼습니다.");
+            return false;
         }
+        return false;
 
     }
 

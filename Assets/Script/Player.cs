@@ -36,6 +36,11 @@ public class Player : MonoBehaviour
 
     public GameObject GameOver;
 
+    public List<GameObject> Chests = new List<GameObject>();
+
+    public Text MyVector;
+    public Text CVetor;
+
     private void Start()
     {
         Mcamera = Camera.main;
@@ -60,8 +65,14 @@ public class Player : MonoBehaviour
             UseItme();
             HpAndAirSlider();
             WeightSpeedDown();
+            MyVectorText();
         }
 
+    }
+
+    void MyVectorText()
+    {
+        MyVector.text = "내 위치 : " + transform.position;
     }
 
     void Move()
@@ -71,6 +82,7 @@ public class Player : MonoBehaviour
 
         Vector3 move = transform.forward * MoveZ + transform.right * MoveX;
 
+        //rigid.MovePosition(rigid.position + move.normalized * (speed - speedDown) * Time.deltaTime);
         transform.Translate(move.normalized * (speed - speedDown) * Time.deltaTime, Space.World);
         Mcamera.transform.position = transform.position + new Vector3(0, 0.5f, 0);
     }
@@ -93,8 +105,50 @@ public class Player : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.Mouse0) && !isAttack)
         {
             animator.SetTrigger("Attack");
+            AttackRay();
             isAttack = true;
             Invoke(("AttackFalse"), 0.25f);
+        }
+    }
+
+    void AttackRay()
+    {
+        RaycastHit hit;
+        Vector3 forward = transform.forward;
+        Vector3 RayOrigin = transform.position;
+        if(Physics.BoxCast(RayOrigin, new Vector3(0.5f, 1f, 0.5f), forward, out hit, Quaternion.identity, 2.0f))
+        {
+            Debug.Log(hit.collider.tag);
+            if(hit.collider.CompareTag("Chest"))
+            {
+                Chest chest = hit.collider.GetComponent<Chest>();
+                if(!chest.isOpen)
+                {
+                    if(chest.Ctype == Chest.ChestType.item)
+                    {
+                        int rand = Random.Range(0, 7);
+                        if(Inventorys.Instance.AddItem(rand))
+                        {
+                            chest.isOpen = true;
+                            Destroy(hit.collider.gameObject);
+                        }
+                    }else
+                    {
+                        if (Inventorys.Instance.AddItem(7))
+                        {
+                            chest.isOpen = true;
+                            Destroy(hit.collider.gameObject);
+                        }
+                    }
+                }
+            } else if(hit.collider.CompareTag("Lever"))
+            {
+               Levers levers = hit.collider.GetComponent<Levers>();
+                if(!levers.isChanging)
+                {
+                    levers.LeverTriiger();
+                }
+            }
         }
     }
 
@@ -134,7 +188,7 @@ public class Player : MonoBehaviour
 
     void HpAndAirSlider()
     {
-        HpSlider.value = (float)(MaxHp / Hp);
+        HpSlider.value = (float) Hp / MaxHp;
         AirSlider.value = Air / MaxAir;
     }
 
@@ -260,6 +314,7 @@ public class Player : MonoBehaviour
                         break;
                     case 2:
                         Debug.Log("보물 탐색기 사용");
+                        FInderChest();
                         break;
                     case 3:
                         Debug.Log("이동 속도 증가(하급) 사용");
@@ -285,6 +340,23 @@ public class Player : MonoBehaviour
     public void RetryThisStage()
     {
         SceneManager.LoadScene("Stage" + DataManager.instance.Stage);
+    }
+
+    void FInderChest()
+    {
+        bool Go = false;
+        while(!Go)
+        {
+            int Rand = Random.Range(0, Chests.Count);
+            Debug.Log(Rand);
+            Chest Cs = Chests[Rand].GetComponent<Chest>();
+            if(!Cs.isOpen)
+            {
+                Go = true;
+                CVetor.text = "보물 위치 : " + Chests[Rand].transform.position;
+            }
+        }
+        
     }
 
 

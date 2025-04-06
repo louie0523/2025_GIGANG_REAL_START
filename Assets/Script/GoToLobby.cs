@@ -9,9 +9,17 @@ public class GoToLobby : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            Inventorys.Instance.ItemSelling();
             Cursor.lockState = CursorLockMode.Confined;
             Cursor.visible = true;
+            if (DataManager.instance.Stage < 1)
+            {
+                DataManager.instance.Stage++;
+                Inventorys.Instance.ItemSelling();
+            } else
+            {
+                Debug.Log("클리어 했습니다.!");
+                DataManager.instance.Reset();
+            }
         }
     }
 }
